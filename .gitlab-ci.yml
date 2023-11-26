@@ -7,7 +7,7 @@ dependency-check:
   stage: security
   image: maven:3.8.5-openjdk-17
   tags:
-    - sonar-scanner
+    - sonar-scanner-sp8
   script:
     - mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
     - mvn dependency-track:upload-bom
@@ -23,7 +23,7 @@ sonarqube-check:
     paths:
       - .sonar/cache
   tags:
-    - sonar-scanner
+    - sonar-scanner-sp8
   script:
     - mvn verify sonar:sonar -Dsonar.projectKey=synpulse8_bank-portal-backend_AYwI_Pa6mSP3c0jYoCgX
   allow_failure: true
@@ -36,7 +36,7 @@ build-jar:
   script:
     - mvn clean package -DskipTests
   tags:
-    - sonar-scanner
+    - sonar-scanner-sp8
   artifacts:
     paths:
       - target/*.jar
@@ -47,7 +47,7 @@ deploy:
     - tags
   image: docker:latest
   tags:
-    - sonar-scanner
+    - sonar-scanner-sp8
   script:
     - echo "$HARBOR_PASSWORD" | docker login -u $HARBOR_ROBOT "$HARBOR_REGISTRY_ADDRESS" --password-stdin
     - docker build -t $HARBOR_IP/$HARBOR_PROJECT_GROUP/$PROJECT_NAME:$CI_COMMIT_TAG .
