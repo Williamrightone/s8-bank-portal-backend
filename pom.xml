@@ -9,12 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cc.synpulse8</groupId>
-	<artifactId>bank-protal-backend</artifactId>
+	<artifactId>bank-portal-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bank-protal-backend</name>
 	<description>Banking System Backend for Frontend</description>
 	<properties>
 		<java.version>17</java.version>
+		<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
 	</properties>
 	<dependencies>
 		<dependency>
