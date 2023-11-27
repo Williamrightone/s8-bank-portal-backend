@@ -54,7 +54,7 @@ public class LoginUser implements UserDetails {
     @Override
     public String getUsername() {
 
-        return user.getInternalId();
+        return user.getSid();
     }
 
     @Override

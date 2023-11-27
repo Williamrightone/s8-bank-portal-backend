@@ -19,12 +19,11 @@ public class UserOnboardController {
 
     @PostMapping("/login")
     public RestfulResponse<LoginResponse> login(@RequestBody LoginRequest loginUserRequest) {
-        System.out.println("Login Controller");
         return userOnboardService.login(loginUserRequest);
     }
 
     @GetMapping("/test")
-    @PreAuthorize("hasAuthority('END_USER_READ')")
+    @PreAuthorize("hasAuthority('ACCOUNTING_VIEW')")
     public String hello() {
         return "SUCCESS";
     }

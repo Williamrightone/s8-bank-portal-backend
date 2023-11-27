@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class EndUserEntity implements Serializable {
 
-    private String internalId;
+    private String sid;
 
     private String userName;
 
