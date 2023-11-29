@@ -69,6 +69,8 @@ public class UserServicesClientImpl implements UserServicesClient {
 
         ResponseEntity<String> response = restTemplate.getForEntity(getPermissionListURL, String.class);
 
+        log.info("Response from User Service: "+response.getBody());
+
         if(!response.getStatusCode().equals(HttpStatus.OK)) {
             log.info("User Services 處理失敗: " + response.getBody());
             //TODO 完善架構
