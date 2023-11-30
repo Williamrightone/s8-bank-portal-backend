@@ -1,31 +1,28 @@
 package cc.synpulse8.bankportalbackend.integration.login;
 
-import cc.synpulse8.bankportalbackend.domain.model.client.res.EndUserInfoRes;
 import cc.synpulse8.bankportalbackend.presentation.dto.request.LoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
+import redis.embedded.RedisServer;
+import redis.embedded.RedisServerBuilder;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.ExpectedCount.once;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,6 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserOnBoardControllerTest {
+
+    private static final int REDIS_PORT = 6379;
+    private static RedisServer redisServer;
 
     private static final String LOGIN_URI = "/api/end-user/login";
 
@@ -47,6 +47,18 @@ public class UserOnBoardControllerTest {
 
     @Value("${client.user-services.url}")
     String userServiceUrl;
+
+    @Mock
+    private HashOperations<String, String, Object> hashOperations;
+
+    @BeforeAll
+    static void beforeAll() {
+        redisServer = new RedisServerBuilder()
+                .port(REDIS_PORT)
+                .setting("daemonize no")
+                .build();
+        redisServer.start();
+    }
 
     @BeforeEach
     public void set_rest_response() {
@@ -95,9 +107,9 @@ public class UserOnBoardControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(loginRequest)))
                 .andDo(print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.sid").value("S231101"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.userName").value("William"));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.sid").value("S231101"))
+                .andExpect(jsonPath("$.data.userName").value("William"));
 
     }
 

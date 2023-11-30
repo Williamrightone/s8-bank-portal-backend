@@ -24,9 +24,6 @@ sonarqube-check:
       - .sonar/cache
   tags:
     - sonar-scanner-sp8
-  services:
-    - name: "redis:latest"
-      alias: "redis"
   script:
     - mvn verify sonar:sonar -Dsonar.projectKey=synpulse8_bank-portal-backend_AYwI_Pa6mSP3c0jYoCgX
   allow_failure: true

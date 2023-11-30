@@ -85,11 +85,10 @@ public class UserOnboardServiceImpl implements UserOnboardService {
         log.info("存到 Redis 的 LoginUser" + user);
         log.info("Redis Host: " + redisHost);
 
-        //TODO Connection Refused
         // redisTemplate.opsForHash.put("Login:" + user.getUser().getEmail(), user, expireTime, TimeUnit.MINUTES);
 
         try {
-        redisTemplate.opsForHash().put("Login:" + user.getUser().getSid(), "user", user);
+            redisTemplate.opsForHash().put("Login:" + user.getUser().getSid(), "user", user);
         } catch (RedisConnectionFailureException | RedisConnectionException e) {
             log.info("Redis Connection Failed");
             //shall throw 500 instead of 400
