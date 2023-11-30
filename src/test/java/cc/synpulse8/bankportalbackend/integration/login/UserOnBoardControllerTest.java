@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserOnBoardControllerTest {
+class UserOnBoardControllerTest {
 
     private static final int REDIS_PORT = 6379;
     private static RedisServer redisServer;
