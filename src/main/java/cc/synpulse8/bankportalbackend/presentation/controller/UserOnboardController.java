@@ -4,6 +4,7 @@ import cc.synpulse8.bankportalbackend.application.UserOnboardService;
 import cc.synpulse8.bankportalbackend.presentation.dto.request.LoginRequest;
 import cc.synpulse8.bankportalbackend.presentation.dto.response.LoginResponse;
 import cc.synpulse8.bankportalbackend.util.rest.RestfulResponse;
+import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +19,12 @@ public class UserOnboardController {
     }
 
     @PostMapping("/login")
-    public RestfulResponse<LoginResponse> login(@RequestBody LoginRequest loginUserRequest) {
-        System.out.println("Login Controller");
+    public RestfulResponse<LoginResponse> login(@Valid @RequestBody LoginRequest loginUserRequest) {
         return userOnboardService.login(loginUserRequest);
     }
 
     @GetMapping("/test")
-    @PreAuthorize("hasAuthority('END_USER_READ')")
+    @PreAuthorize("hasAuthority('ACCOUNTING_VIEW')")
     public String hello() {
         return "SUCCESS";
     }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 public class LoginResponse {
 
-    private String internalId;
+    private String sid;
 
     private String userName;
 

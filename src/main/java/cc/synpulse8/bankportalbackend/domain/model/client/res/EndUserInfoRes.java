@@ -11,9 +11,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class EndUserInfoRes implements Serializable {
 
-    private String internalId;
+    private String sid;
 
-    private String password;
+    private String passwd;
 
     private String userName;
 

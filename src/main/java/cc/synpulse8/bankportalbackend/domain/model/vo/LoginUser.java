@@ -36,8 +36,6 @@ public class LoginUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-//		List<SimpleGrantedAuthority> permissionList = permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-
         if(permissionList != null) {
             return permissionList;
         }
@@ -54,7 +52,7 @@ public class LoginUser implements UserDetails {
     @Override
     public String getUsername() {
 
-        return user.getInternalId();
+        return user.getSid();
     }
 
     @Override

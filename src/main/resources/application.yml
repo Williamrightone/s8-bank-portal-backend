@@ -21,3 +21,6 @@ application:
         expiration: 1200000 # 20 Min
 
 #Client Services
+client:
+  user-services:
+    url: http://${CONTAINER_HOST:localhost}:8091

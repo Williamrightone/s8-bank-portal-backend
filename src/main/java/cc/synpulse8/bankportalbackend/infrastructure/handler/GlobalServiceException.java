@@ -18,6 +18,10 @@ public class GlobalServiceException extends RuntimeException {
 
         TOKEN_EMPTY_ERROR("00007", GlobalErrorLevel.HIGH),
 
+        REQUEST_JSON_PARSE_ERROR("00008", GlobalErrorLevel.HIGH),
+
+        REDIS_CONNECTION_ERROR("00009", GlobalErrorLevel.HIGH),
+
         ;
 
 

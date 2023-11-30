@@ -2,6 +2,8 @@ package cc.synpulse8.bankportalbackend.domain.service.impl;
 
 import cc.synpulse8.bankportalbackend.domain.model.client.res.EndUserInfoRes;
 import cc.synpulse8.bankportalbackend.domain.model.entity.EndUserEntity;
+import cc.synpulse8.bankportalbackend.domain.model.vo.LoginUser;
+import cc.synpulse8.bankportalbackend.domain.service.UserServicesClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,28 +16,26 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserServicesClient userServicesClient;
 
-    @Autowired
-    private AuthenticationServiceClient authenticationServiceClient;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        // Using restTemplate to get user info from user service
-        EndUserInfoRes userInfoRes = userServicesClient.getEndUserByEmail(username);
+        //username is SID, to fit the spring security api
+
+        EndUserInfoRes userInfoRes = userServicesClient.getUserInfoBySid(username);
 
         EndUserEntity user = new EndUserEntity();
 
-        user.setEmail(userInfoRes.getEmail());
+        user.setSid(userInfoRes.getSid());
         user.setUserName(userInfoRes.getUserName());
-        user.setPassword(userInfoRes.getPassword());
+        user.setPassword(userInfoRes.getPasswd());
 
         LoginUser loginUser = new LoginUser();
 
         loginUser.setUser(user);
 
-        List<String> list = authenticationServiceClient.getPermissionsByEmail(username);
+        List<String> permissions = userServicesClient.getPermissionsBySid(username);
 
-        loginUser.setPermissions(list);
+        loginUser.setPermissions(permissions);
 
         return loginUser;
     }
