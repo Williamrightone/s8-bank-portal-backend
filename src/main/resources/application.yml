@@ -24,3 +24,5 @@ application:
 client:
   user-services:
     url: http://${CONTAINER_HOST:localhost}:8091
+  core-banking-services:
+    url: http://${CONTAINER_HOST:localhost}:8092
