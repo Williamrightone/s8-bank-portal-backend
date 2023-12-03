@@ -23,16 +23,4 @@ public class UserOnboardController {
         return userOnboardService.login(loginUserRequest);
     }
 
-    @GetMapping("/test")
-    @PreAuthorize("hasAuthority('ACCOUNTING_VIEW')")
-    public String hello() {
-        return "SUCCESS";
-    }
-
-    @GetMapping("/test-not-allowed")
-    @PreAuthorize("hasAuthority('TEST3')")
-    public String block() {
-        return "SUCCESS";
-    }
-
 }
