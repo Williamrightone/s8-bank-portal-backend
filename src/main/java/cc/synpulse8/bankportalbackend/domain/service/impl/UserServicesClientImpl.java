@@ -73,7 +73,6 @@ public class UserServicesClientImpl implements UserServicesClient {
 
         if(!response.getStatusCode().equals(HttpStatus.OK)) {
             log.info("User Services 處理失敗: " + response.getBody());
-            //TODO 完善架構
         }
 
         ObjectMapper objMapper = new ObjectMapper();

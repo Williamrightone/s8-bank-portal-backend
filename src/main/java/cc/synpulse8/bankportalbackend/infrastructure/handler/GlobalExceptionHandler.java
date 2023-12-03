@@ -46,6 +46,7 @@ public class GlobalExceptionHandler {
 
         }
 
+        assert error != null;
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ResponseErrorDto(HttpStatus.BAD_REQUEST, error.getErrorType().getErrorCode()));
     }
@@ -53,8 +54,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ResponseErrorDto> handleAccessDeniedException(AccessDeniedException error) {
 
-        System.out.println("AccessDeniedException 接住");
-
+        log.info("AccessDeniedException 接住");
+        log.info(error.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ResponseErrorDto(HttpStatus.BAD_REQUEST, "10001"));
     }
@@ -63,7 +64,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ResponseErrorDto> handleAuthenticationException(AuthenticationException error) {
 
-        System.out.println("AuthenticationException 接住");
+        log.info("AuthenticationException 接住");
         log.info(error.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ResponseErrorDto(HttpStatus.BAD_REQUEST, "10002"));

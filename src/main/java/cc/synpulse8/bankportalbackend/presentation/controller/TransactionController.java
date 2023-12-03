@@ -1,11 +1,9 @@
 package cc.synpulse8.bankportalbackend.presentation.controller;
 
 import cc.synpulse8.bankportalbackend.application.TransactionInfoService;
-import cc.synpulse8.bankportalbackend.domain.model.vo.TransactionContent;
 import cc.synpulse8.bankportalbackend.presentation.dto.request.TransactionViewRequest;
 import cc.synpulse8.bankportalbackend.presentation.dto.response.TransactionViewResponse;
 import cc.synpulse8.bankportalbackend.util.rest.RestfulResponse;
-import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

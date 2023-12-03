@@ -70,8 +70,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 log.info("Checking Redis user: " + redisTemplate.opsForHash().get("Login:" + userEmail, "user"));
                 Gson gson = new Gson();
                 //T到 redis 查詢 token 是否存在
-                UserDetails userDetails = (LoginUser) gson.fromJson(redisTemplate.opsForHash().get("Login:" + userEmail, "user").toString(), LoginUser.class);
 
+                UserDetails userDetails = (LoginUser) gson.fromJson(redisTemplate.opsForHash().get("Login:" + userEmail, "user").toString(), LoginUser.class);
                 //如果 token 有效，就把 user 設定到 SecurityContext
 
                 if (jwtService.isTokenValid(jwt, userDetails)) {
